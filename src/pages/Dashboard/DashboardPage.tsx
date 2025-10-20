@@ -1,17 +1,29 @@
 import { Card } from '../../shared/ui/Card';
 import { Map, CalendarDays, ListTodo, Sprout, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../app/AuthContext'
 
 export function DashboardPage() {
+  const { user } = useAuth();
+
+  // Форматирование даты
+  const today = new Date();
+  const dateString = today.toLocaleDateString('ru-RU', { 
+    weekday: 'long', 
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
   return (
     <>
       {/* Welcome Section */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">
-          Привет, пользователь! 👋
+          Привет, {user?.name}! 👋
         </h1>
-        <p className="text-gray-600 mt-1">
-          Понедельник, 20 октября 2025 г.
+        <p className="text-gray-600 mt-1 capitalize">
+          {dateString}
         </p>
       </div>
 
