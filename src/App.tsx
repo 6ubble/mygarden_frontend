@@ -3,24 +3,28 @@ import { useUser } from './shared/hooks/useUser'
 import { Loading } from './shared/ui/Loading'
 import { Login } from './features/auth/Login'
 import { Register } from './features/auth/Register'
-import { Account } from './pages/Account'
+import { Dashboard } from './pages/DashboardPage'
 import { MapPage } from './pages/MapPage'
 import { CalendarPage } from './pages/CalendarPage'
 import { TasksPage } from './pages/TasksPage'
 import { SettingsPage } from './pages/SettingsPage'
-import { Header } from './layout/Header/Header'
-import { Footer } from './layout/Footer/Footer'
+import { Header } from './layout/header/Header'
+import { Footer } from './layout/footer/Footer'
 
-function AppLayout({ children, isAuthenticated }: { children: React.ReactNode, isAuthenticated: boolean }) {
+function ProtectedLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-            <main className={`flex-1 pt-16 ${isAuthenticated ? 'pb-20' : ''}`}>
+            <main className="flex-1 pt-16 pb-20">
                 {children}
             </main>
-            {isAuthenticated && <Footer />}
+            <Footer />
         </div>
     )
+}
+
+function AuthLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>
 }
 
 export default function App() {
@@ -37,82 +41,102 @@ export default function App() {
     const isAuthenticated = !!user;
 
     return (
-        <AppLayout isAuthenticated={isAuthenticated}>
-            <Routes>
-                {/* Главная = Login */}
-                <Route 
-                    path="/" 
-                    element={<Login />} 
-                />
+        <Routes>
+            {/* Публичные маршруты (без header) */}
+            <Route
+                path="/"
+                element={
+                    isAuthenticated ? (
+                        <Navigate to="/dashboard" replace />
+                    ) : (
+                        <AuthLayout>
+                            <Login />
+                        </AuthLayout>
+                    )
+                }
+            />
 
-                {/* Регистр */}
-                <Route 
-                    path="/register" 
-                    element={<Register />} 
-                />
+            <Route
+                path="/register"
+                element={
+                    isAuthenticated ? (
+                        <Navigate to="/dashboard" replace />
+                    ) : (
+                        <AuthLayout>
+                            <Register />
+                        </AuthLayout>
+                    )
+                }
+            />
 
-                {/* Dashboard (только авторизованные) */}
-                <Route
-                    path="/dashboard"
-                    element={
-                        isAuthenticated ? (
-                            <Account />
-                        ) : (
-                            <Navigate to="/" replace />
-                        )
-                    }
-                />
+            {/* Защищённые маршруты (с header и footer) */}
+            <Route
+                path="/dashboard"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
+                            <Dashboard />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
 
-                {/* Карта (только авторизованные) */}
-                <Route
-                    path="/map"
-                    element={
-                        isAuthenticated ? (
+            <Route
+                path="/map"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
                             <MapPage />
-                        ) : (
-                            <Navigate to="/" replace />
-                        )
-                    }
-                />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
 
-                {/* Календарь (только авторизованные) */}
-                <Route
-                    path="/calendar"
-                    element={
-                        isAuthenticated ? (
+            <Route
+                path="/calendar"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
                             <CalendarPage />
-                        ) : (
-                            <Navigate to="/" replace />
-                        )
-                    }
-                />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
 
-                {/* Задачи (только авторизованные) */}
-                <Route
-                    path="/tasks"
-                    element={
-                        isAuthenticated ? (
+            <Route
+                path="/tasks"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
                             <TasksPage />
-                        ) : (
-                            <Navigate to="/" replace />
-                        )
-                    }
-                />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
 
-                {/* Настройки (только авторизованные) */}
-                <Route
-                    path="/settings"
-                    element={
-                        isAuthenticated ? (
+            <Route
+                path="/settings"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
                             <SettingsPage />
-                        ) : (
-                            <Navigate to="/" replace />
-                        )
-                    }
-                />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
 
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-        </AppLayout>
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
     );
 }

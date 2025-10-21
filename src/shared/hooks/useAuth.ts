@@ -10,28 +10,38 @@ export const useAuth = () => {
     const loginMutation = useMutation({
         mutationFn: loginApi,
         onSuccess: (data) => {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            // Обновляем кеш пользователя
             queryClient.setQueryData(['user'], data.user);
-            navigate('/');
+            // Редирект на dashboard (главную личного кабинета)
+            navigate('/dashboard', { replace: true });
+        },
+        onError: (error: any) => {
+            const message = error.response?.data?.message || 'Ошибка входа';
+            throw new Error(message);
         },
     });
 
     const registerMutation = useMutation({
         mutationFn: registerApi,
         onSuccess: (data) => {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            // Обновляем кеш пользователя
             queryClient.setQueryData(['user'], data.user);
-            navigate('/');
+            // Редирект на dashboard после регистрации
+            navigate('/dashboard', { replace: true });
+        },
+        onError: (error: any) => {
+            const message = error.response?.data?.message || 'Ошибка регистрации';
+            throw new Error(message);
         },
     });
 
     const logoutMutation = useMutation({
         mutationFn: logoutApi,
         onSuccess: () => {
+            // Очищаем кеш пользователя
             queryClient.setQueryData(['user'], null);
-            navigate('/login');
+            // Редирект на главную
+            navigate('/', { replace: true });
         },
     });
 
