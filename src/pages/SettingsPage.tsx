@@ -21,7 +21,6 @@ export function SettingsPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow">
-                {/* Профиль */}
                 <div className="p-6 border-b border-gray-200">
                     <h2 className="text-xl font-semibold mb-4">Профиль</h2>
                     <div className="space-y-3">
@@ -36,7 +35,6 @@ export function SettingsPage() {
                     </div>
                 </div>
 
-                {/* Опасная зона */}
                 <div className="p-6">
                     <h2 className="text-xl font-semibold mb-4 text-red-600">Опасная зона</h2>
                     <button
