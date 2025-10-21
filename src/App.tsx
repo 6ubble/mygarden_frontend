@@ -42,7 +42,6 @@ export default function App() {
 
     return (
         <Routes>
-            {/* Публичные маршруты (без header) */}
             <Route
                 path="/"
                 element={
@@ -69,7 +68,6 @@ export default function App() {
                 }
             />
 
-            {/* Защищённые маршруты (с header и footer) */}
             <Route
                 path="/dashboard"
                 element={
@@ -135,7 +133,6 @@ export default function App() {
                 }
             />
 
-            {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

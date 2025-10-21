@@ -12,7 +12,6 @@ export const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Статистика */}
                 <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold">Активные растения</h3>
@@ -41,7 +40,6 @@ export const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Основной контент */}
             <div className="mt-8 bg-white rounded-2xl shadow p-8">
                 <h2 className="text-2xl font-semibold mb-4">Начните с этого</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

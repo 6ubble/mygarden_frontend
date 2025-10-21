@@ -10,9 +10,7 @@ export const useAuth = () => {
     const loginMutation = useMutation({
         mutationFn: loginApi,
         onSuccess: (data) => {
-            // Обновляем кеш пользователя
             queryClient.setQueryData(['user'], data.user);
-            // Редирект на dashboard (главную личного кабинета)
             navigate('/dashboard', { replace: true });
         },
         onError: (error: any) => {
@@ -24,9 +22,7 @@ export const useAuth = () => {
     const registerMutation = useMutation({
         mutationFn: registerApi,
         onSuccess: (data) => {
-            // Обновляем кеш пользователя
             queryClient.setQueryData(['user'], data.user);
-            // Редирект на dashboard после регистрации
             navigate('/dashboard', { replace: true });
         },
         onError: (error: any) => {
@@ -38,9 +34,7 @@ export const useAuth = () => {
     const logoutMutation = useMutation({
         mutationFn: logoutApi,
         onSuccess: () => {
-            // Очищаем кеш пользователя
             queryClient.setQueryData(['user'], null);
-            // Редирект на главную
             navigate('/', { replace: true });
         },
     });
