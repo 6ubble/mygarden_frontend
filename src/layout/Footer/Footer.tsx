@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Home, Map, CalendarDays, ListTodo } from 'lucide-react';
 
 const navigation = [
-  { name: 'Главная', path: '/', icon: Home },
+  { name: 'Главная', path: '/dashboard', icon: Home },
   { name: 'Карта', path: '/map', icon: Map },
   { name: 'Календарь', path: '/calendar', icon: CalendarDays },
   { name: 'Задачи', path: '/tasks', icon: ListTodo },

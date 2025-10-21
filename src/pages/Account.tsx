@@ -1,7 +1,7 @@
 import { Leaf, LogOut } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../shared/hooks/useAuth';
-import { useUser } from '../../shared/hooks/useUser';
+import { useAuth } from '../shared/hooks/useAuth';
+import { useUser } from '../shared/hooks/useUser';
 import { useState } from 'react';
 
 export const Account = () => {
