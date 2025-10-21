@@ -1,0 +1,11 @@
+import { client } from '../client';
+
+export const loginApi = async (data: { email: string; password: string }) => {
+    const response = await client.post('/auth/login', data);
+    return response.data;
+};
+
+export const logoutApi = async () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+};
