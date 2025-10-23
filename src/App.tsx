@@ -10,6 +10,7 @@ import { TasksPage } from './pages/TasksPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { Header } from './layout/header/Header'
 import { Footer } from './layout/footer/Footer'
+import { NotificationsPage } from './pages/NotificationsPage'
 
 function ProtectedLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -113,6 +114,19 @@ export default function App() {
                     isAuthenticated ? (
                         <ProtectedLayout>
                             <TasksPage />
+                        </ProtectedLayout>
+                    ) : (
+                        <Navigate to="/" replace />
+                    )
+                }
+            />
+
+            <Route
+                path="/notifications"
+                element={
+                    isAuthenticated ? (
+                        <ProtectedLayout>
+                            <NotificationsPage />
                         </ProtectedLayout>
                     ) : (
                         <Navigate to="/" replace />

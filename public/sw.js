@@ -1,14 +1,31 @@
+// Service Worker для push уведомлений
+
 self.addEventListener('push', (event) => {
+    console.log('🔔 PUSH EVENT RECEIVED:', event);
+    
     if (!event.data) {
         console.log('Push получен, но данных нет');
         return;
     }
 
     try {
-        const data = event.data.json();
+        let data;
         
+        // Пытаемся распарсить как JSON
+        try {
+            data = event.data.json();
+            console.log('✅ JSON распарсен:', data);
+        } catch (e) {
+            // Если не JSON - берём как текст
+            data = {
+                title: 'Уведомление',
+                body: event.data.text()
+            };
+            console.log('⚠️ Текст вместо JSON:', data);
+        }
+
         const options = {
-            body: data.body,
+            body: data.body || 'Новое уведомление',
             icon: data.icon || '/garden-icon.png',
             badge: data.badge || '/garden-badge.png',
             tag: data.tag || 'notification',
@@ -26,14 +43,19 @@ self.addEventListener('push', (event) => {
             ]
         };
 
+        console.log('📤 Показываем уведомление:', data.title, options);
+
         event.waitUntil(
-            self.registration.showNotification(data.title, options)
+            self.registration.showNotification(data.title || 'Уведомление', options)
+                .then(() => console.log('✅ Уведомление показано!'))
+                .catch((err) => console.error('❌ Ошибка показа уведомления:', err))
         );
     } catch (error) {
-        console.error('Ошибка обработки push:', error);
+        console.error('❌ Ошибка обработки push:', error);
     }
 });
 
+// Обработка клика на уведомление
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
 
@@ -41,6 +63,7 @@ self.addEventListener('notificationclick', (event) => {
         return;
     }
 
+    // Открываем главную страницу приложения
     event.waitUntil(
         clients.matchAll({ type: 'window' }).then((clientList) => {
             for (let i = 0; i < clientList.length; i++) {
@@ -56,6 +79,7 @@ self.addEventListener('notificationclick', (event) => {
     );
 });
 
+// Обработка закрытия уведомления
 self.addEventListener('notificationclose', (event) => {
     console.log('Уведомление закрыто:', event.notification.tag);
 });
