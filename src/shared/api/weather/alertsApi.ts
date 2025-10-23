@@ -1,8 +1,18 @@
 import { client } from '../client';
 
-export type WateringAlertData = {
+export type AlertsData = {
   city: string;
   timezone: string;
+  timestamp: number;
+  
+  frost: {
+    temp: number;
+    time: string;
+    isFrost: boolean;
+    description: string;
+    humidity: number;
+  };
+
   heat: {
     isHeat: boolean;
     isExtreme: boolean;
@@ -10,23 +20,25 @@ export type WateringAlertData = {
     humidity: number;
     description: string;
   };
+
   rain: {
     isRain: boolean;
     totalRain: number;
     rainHours: number;
     willRainAll: boolean;
   };
-  recommendation: {
+
+  watering: {
     recommendation: string | null;
     shouldWater: boolean;
     emoji: string | null;
   };
-  timestamp: number;
+
   fromCache?: boolean;
 };
 
-export const getWateringAlertApi = async (latitude: number, longitude: number): Promise<WateringAlertData> => {
-    const response = await client.get('/api/watering-alert', {
+export const getAllAlertsApi = async (latitude: number, longitude: number): Promise<AlertsData> => {
+    const response = await client.get('/api/alerts', {
         params: { latitude, longitude }
     });
     return response.data;

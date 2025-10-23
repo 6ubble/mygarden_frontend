@@ -1,13 +1,21 @@
-import { AlertTriangle, Thermometer, Clock } from 'lucide-react';
-import { type FrostAlertData } from '../../shared/api/weather/frostAlertApi';
+import { AlertTriangle, Clock, Thermometer } from 'lucide-react';
+
+interface FrostAlert {
+  temp: number;
+  time: string;
+  isFrost: boolean;
+  description: string;
+  humidity: number;
+  city: string;
+  timestamp: number;
+}
 
 interface FrostAlertCardProps {
-  alert: FrostAlertData | null;
+  alert: FrostAlert | null;
   isLoading: boolean;
 }
 
 export function FrostAlertCard({ alert, isLoading }: FrostAlertCardProps) {
-  // Если нет заморозков или идёт загрузка - не показываем карточку
   if (isLoading || !alert || !alert.isFrost) {
     return null;
   }

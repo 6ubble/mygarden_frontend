@@ -1,25 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
-import { getFrostAlertApi, type FrostAlertData } from '../api/weather/frostAlertApi';
+import { getAllAlertsApi, type AlertsData } from '../api/weather/alertsApi';
 
-interface UseFrostAlertResult {
-    data: FrostAlertData | null;
+interface UseAlertsResult {
+    data: AlertsData | null;
     isLoading: boolean;
     error: string | null;
 }
 
-export const useFrostAlert = (): UseFrostAlertResult => {
+export const useAlerts = (): UseAlertsResult => {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['frostAlert'],
+        queryKey: ['alerts'],
         queryFn: async () => {
-            return new Promise<FrostAlertData>((resolve, reject) => {
+            return new Promise<AlertsData>((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
                         try {
-                            const alertData = await getFrostAlertApi(
+                            const alertsData = await getAllAlertsApi(
                                 position.coords.latitude,
                                 position.coords.longitude
                             );
-                            resolve(alertData);
+                            resolve(alertsData);
                         } catch (err) {
                             reject(err);
                         }
@@ -38,7 +38,7 @@ export const useFrostAlert = (): UseFrostAlertResult => {
             });
         },
         retry: 1,
-        staleTime: 24 * 60 * 60 * 1000, // 24 часа
+        staleTime: 24 * 60 * 60 * 1000,
     });
 
     return {
