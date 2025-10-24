@@ -15,12 +15,12 @@ export function SettingsPage() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center justify-center gap-3 mb-8">
                 <Settings className="w-8 h-8 text-green-600" />
                 <h1 className="text-3xl font-bold">Настройки</h1>
             </div>
 
-            <div className="bg-white rounded-lg shadow">
+            <div className=" bg-white rounded-lg shadow">
                 <div className="p-6 border-b border-gray-200">
                     <h2 className="text-xl font-semibold mb-4">Профиль</h2>
                     <div className="space-y-3">

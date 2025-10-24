@@ -3,7 +3,7 @@ import { ListTodo } from 'lucide-react';
 export function TasksPage() {
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center justify-center gap-3 mb-8">
                 <ListTodo className="w-8 h-8 text-green-600" />
                 <h1 className="text-3xl font-bold">Список задач</h1>
             </div>

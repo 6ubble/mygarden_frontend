@@ -45,13 +45,13 @@ export function WeatherCard({ weather, isLoading, error }: WeatherCardProps) {
               <span className="text-5xl font-bold">{weather.temp}°</span>
               <div>
                 <p className="text-xl font-semibold">{weather.description}</p>
-                <div className="flex gap-4 mt-2 text-sm">
+                <div className="flex gap-4 mt-5 text-sm">
                   <div className="flex items-center gap-1">
-                    <Droplets className="w-4 h-4" />
+                    <Droplets className="w-3 h-3" />
                     <span>Влажность: {weather.humidity}%</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Wind className="w-4 h-4" />
+                    <Wind className="w-3 h-3" />
                     <span>Ветер: {weather.windSpeed} м/с</span>
                   </div>
                 </div>

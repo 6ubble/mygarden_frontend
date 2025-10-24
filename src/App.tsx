@@ -8,8 +8,8 @@ import { MapPage } from './pages/MapPage'
 import { CalendarPage } from './pages/CalendarPage'
 import { TasksPage } from './pages/TasksPage'
 import { SettingsPage } from './pages/SettingsPage'
-import { Header } from './layout/header/Header'
-import { Footer } from './layout/footer/Footer'
+import { Header } from './widgets/header/Header'
+import { Footer } from './widgets/footer/Footer'
 import { NotificationsPage } from './pages/NotificationsPage'
 
 function ProtectedLayout({ children }: { children: React.ReactNode }) {
