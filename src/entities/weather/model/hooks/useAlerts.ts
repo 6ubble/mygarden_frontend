@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { alertsApi, type AlertsData } from '../../../../entities/weather/api/alertsApi';
+import { alertsApi } from '../../../../entities/weather/api/alertsApi';
+import { type AlertsData } from '../types/types';
 
 export const useAlerts = () => {
   const { data, isLoading, error } = useQuery({
