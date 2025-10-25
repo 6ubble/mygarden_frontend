@@ -1,4 +1,4 @@
-import { client } from '../client';
+import { client } from '../../../shared/api/client';
 
 export type WeatherData = {
   temp: number;
@@ -10,9 +10,11 @@ export type WeatherData = {
   fromCache?: boolean;
 };
 
-export const getWeatherApi = async (latitude: number, longitude: number): Promise<WeatherData> => {
+export const weatherApi = {
+  getWeather: async (latitude: number, longitude: number): Promise<WeatherData> => {
     const response = await client.get('/api/weather', {
-        params: { latitude, longitude }
+      params: { latitude, longitude }
     });
     return response.data;
+  },
 };

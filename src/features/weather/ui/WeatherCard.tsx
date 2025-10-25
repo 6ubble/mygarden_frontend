@@ -1,5 +1,5 @@
 import { Cloud, CloudRain, Sun, Wind, Droplets, AlertCircle } from 'lucide-react';
-import { type WeatherData } from '../../shared/api/weather/weatherApi';
+import type { WeatherData } from '../api/weatherApi';
 
 interface WeatherCardProps {
   weather: WeatherData | null;

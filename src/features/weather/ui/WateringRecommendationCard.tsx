@@ -1,40 +1,17 @@
 import { Cloud, Droplets, Thermometer } from 'lucide-react';
-
-interface WateringAlert {
-  city: string;
-  timezone: string;
-  heat: {
-    isHeat: boolean;
-    isExtreme: boolean;
-    maxTemp: number;
-    humidity: number;
-    description: string;
-  };
-  rain: {
-    isRain: boolean;
-    totalRain: number;
-    rainHours: number;
-    willRainAll: boolean;
-  };
-  recommendation: {
-    recommendation: string | null;
-    shouldWater: boolean;
-    emoji: string | null;
-  };
-  timestamp: number;
-}
+import type { AlertsData } from '../api/alertsApi';
 
 interface WateringRecommendationCardProps {
-  alert: WateringAlert | null;
+  alert: AlertsData | null;
   isLoading: boolean;
 }
 
 export function WateringRecommendationCard({ alert, isLoading }: WateringRecommendationCardProps) {
-  if (isLoading || !alert || !alert.recommendation.recommendation) {
+  if (isLoading || !alert || !alert.watering.recommendation) {
     return null;
   }
 
-  const rec = alert.recommendation;
+  const rec = alert.watering;
   const isRain = alert.rain.isRain;
   const isHeat = alert.heat.isHeat;
 

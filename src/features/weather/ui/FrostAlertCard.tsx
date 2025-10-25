@@ -1,22 +1,19 @@
 import { AlertTriangle, Clock, Thermometer } from 'lucide-react';
 
-interface FrostAlert {
-  temp: number;
-  time: string;
-  isFrost: boolean;
-  description: string;
-  humidity: number;
-  city: string;
-  timestamp: number;
-}
-
-interface FrostAlertCardProps {
-  alert: FrostAlert | null;
+interface FrostAlertProps {
+  alert: {
+    temp: number;
+    time: string;
+    isFrost: boolean;
+    description: string;
+    humidity: number;
+  } | null;
+  city: string | null;
   isLoading: boolean;
 }
 
-export function FrostAlertCard({ alert, isLoading }: FrostAlertCardProps) {
-  if (isLoading || !alert || !alert.isFrost) {
+export function FrostAlertCard({ alert, city, isLoading }: FrostAlertProps) {
+  if (isLoading || !alert || !alert.isFrost || !city) {
     return null;
   }
 
@@ -29,7 +26,7 @@ export function FrostAlertCard({ alert, isLoading }: FrostAlertCardProps) {
         
         <div className="flex-1">
           <h3 className="text-lg font-bold text-orange-900 mb-2">
-            🧊 Внимание: Заморозки в {alert.city}!
+            🧊 Внимание: Заморозки в {city}!
           </h3>
           
           <p className="text-orange-800 mb-3">

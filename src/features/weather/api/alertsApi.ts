@@ -1,4 +1,4 @@
-import { client } from '../client';
+import { client } from '../../../shared/api/client';
 
 export type AlertsData = {
   city: string;
@@ -37,9 +37,11 @@ export type AlertsData = {
   fromCache?: boolean;
 };
 
-export const getAllAlertsApi = async (latitude: number, longitude: number): Promise<AlertsData> => {
+export const alertsApi = {
+  getAlerts: async (latitude: number, longitude: number): Promise<AlertsData> => {
     const response = await client.get('/api/alerts', {
-        params: { latitude, longitude }
+      params: { latitude, longitude }
     });
     return response.data;
+  },
 };

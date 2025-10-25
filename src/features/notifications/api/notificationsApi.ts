@@ -1,4 +1,4 @@
-import { client } from '../client';
+import { client } from '../../../shared/api/client';
 
 export type Notification = {
   id: number;
@@ -10,26 +10,28 @@ export type Notification = {
   created_at: string;
 };
 
-export const getNotificationsApi = async (limit = 50, offset = 0): Promise<{ notifications: Notification[], unreadCount: number }> => {
+export const notificationsApi = {
+  getNotifications: async (limit = 50, offset = 0) => {
     const response = await client.get('/api/notifications', {
-        params: { limit, offset }
+      params: { limit, offset }
     });
     return response.data;
-};
+  },
 
-export const getUnreadCountApi = async (): Promise<number> => {
+  getUnreadCount: async (): Promise<number> => {
     const response = await client.get('/api/notifications/unread-count');
     return response.data.unreadCount;
-};
+  },
 
-export const markAsReadApi = async (notificationId: number): Promise<void> => {
+  markAsRead: async (notificationId: number): Promise<void> => {
     await client.put(`/api/notifications/${notificationId}/read`);
-};
+  },
 
-export const markAllAsReadApi = async (): Promise<void> => {
+  markAllAsRead: async (): Promise<void> => {
     await client.put('/api/notifications/read-all');
-};
+  },
 
-export const deleteNotificationApi = async (notificationId: number): Promise<void> => {
+  deleteNotification: async (notificationId: number): Promise<void> => {
     await client.delete(`/api/notifications/${notificationId}`);
+  },
 };

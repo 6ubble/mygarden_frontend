@@ -1,42 +1,33 @@
-import { useWeather } from '../shared/hooks/useWeather';
-import { useAlerts } from '../shared/hooks/useAlerts';
+import { useWeather } from '../features/weather/model/hooks/useWeather';
+import { useAlerts } from '../features/weather/model/hooks/useAlerts';
 import { usePushSubscription } from '../shared/hooks/usePushSubscription';
-import { WeatherCard } from '../features/weather/WeatherCard';
-import { FrostAlertCard } from '../features/weather/FrostAlertCard';
-import { WateringRecommendationCard } from '../features/weather/WateringRecommendationCard';
+import { WeatherCard } from '../features/weather/ui/WeatherCard';
+import { FrostAlertCard } from '../features/weather/ui/FrostAlertCard';
+import { WateringRecommendationCard } from '../features/weather/ui/WateringRecommendationCard';
 
 export const Dashboard = () => {
-    const { data: weather, isLoading: weatherLoading, error: weatherError } = useWeather();
-    const { data: alerts, isLoading: alertsLoading } = useAlerts();
-    usePushSubscription()
+  const weather = useWeather();
+  const alerts = useAlerts();
+  usePushSubscription();
 
-    return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
-            {/* Погода */}
-            <WeatherCard weather={weather} isLoading={weatherLoading} error={weatherError} />
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <WeatherCard 
+        weather={weather.data} 
+        isLoading={weather.isLoading} 
+        error={weather.error} 
+      />
 
-            {/* ⚠️ Предупреждение о заморозках */}
-            {alerts && (
-                <FrostAlertCard 
-                    alert={{ ...alerts.frost, city: alerts.city, timestamp: alerts.timestamp }}
-                    isLoading={alertsLoading} 
-                />
-            )}
+      <FrostAlertCard 
+        alert={alerts.data?.frost || null}
+        city={alerts.data?.city || null}
+        isLoading={alerts.isLoading}
+      />
 
-            {/* 💧 Рекомендация по поливу */}
-            {alerts && (
-                <WateringRecommendationCard 
-                    alert={{
-                        city: alerts.city,
-                        timezone: alerts.timezone,
-                        heat: alerts.heat,
-                        rain: alerts.rain,
-                        recommendation: alerts.watering,
-                        timestamp: alerts.timestamp
-                    }}
-                    isLoading={alertsLoading}
-                />
-            )}
-        </div>
-    );
+      <WateringRecommendationCard 
+        alert={alerts.data || null}
+        isLoading={alerts.isLoading}
+      />
+    </div>
+  );
 };
