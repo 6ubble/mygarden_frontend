@@ -1,5 +1,5 @@
 import { Bell } from 'lucide-react';
-import { useNotifications, useUnreadCount, useMarkAsRead, useMarkAllAsRead, useDeleteNotification } from '../features/notifications/model/hooks/useNotifications';
+import { useNotifications, useUnreadCount, useMarkAsRead, useMarkAllAsRead, useDeleteNotification } from '../entities/notifications/model/hooks/useNotifications';
 import { NotificationsList } from '../features/notifications/ui/NotificationsList';
 
 export function NotificationsPage() {

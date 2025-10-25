@@ -1,19 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { weatherApi, type WeatherData } from '../../api/weatherApi';
+import { alertsApi, type AlertsData } from '../../../../entities/weather/api/alertsApi';
 
-export const useWeather = () => {
+export const useAlerts = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['weather'],
+    queryKey: ['alerts'],
     queryFn: async () => {
-      return new Promise<WeatherData>((resolve, reject) => {
+      return new Promise<AlertsData>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
             try {
-              const weatherData = await weatherApi.getWeather(
+              const alertsData = await alertsApi.getAlerts(
                 position.coords.latitude,
                 position.coords.longitude
               );
-              resolve(weatherData);
+              resolve(alertsData);
             } catch (err) {
               reject(err);
             }

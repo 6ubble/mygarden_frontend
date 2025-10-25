@@ -1,5 +1,5 @@
-import { useWeather } from '../features/weather/model/hooks/useWeather';
-import { useAlerts } from '../features/weather/model/hooks/useAlerts';
+import { useWeather } from '../entities/weather/model/hooks/useWeather';
+import { useAlerts } from '../entities/weather/model/hooks/useAlerts';
 import { usePushSubscription } from '../shared/hooks/usePushSubscription';
 import { WeatherCard } from '../features/weather/ui/WeatherCard';
 import { FrostAlertCard } from '../features/weather/ui/FrostAlertCard';

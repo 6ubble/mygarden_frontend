@@ -1,5 +1,5 @@
 import { Trash2, CheckCheck } from 'lucide-react';
-import type { Notification } from '../api/notificationsApi';
+import type { Notification } from '../../../entities/notifications/api/notificationsApi';
 
 interface NotificationItemProps {
   notification: Notification;

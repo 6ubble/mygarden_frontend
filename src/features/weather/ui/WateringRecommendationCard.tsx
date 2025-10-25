@@ -1,5 +1,5 @@
 import { Cloud, Droplets, Thermometer } from 'lucide-react';
-import type { AlertsData } from '../api/alertsApi';
+import type { AlertsData } from '../../../entities/weather/api/alertsApi';
 
 interface WateringRecommendationCardProps {
   alert: AlertsData | null;

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { notificationsApi } from '../../api/notificationsApi';
+import { notificationsApi } from '../../../../entities/notifications/api/notificationsApi';
 
 export const useNotifications = (limit = 50, offset = 0) => {
   return useQuery({

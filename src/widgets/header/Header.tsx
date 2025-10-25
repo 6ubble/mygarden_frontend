@@ -1,6 +1,6 @@
 import { Leaf, Bell, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUnreadCount } from '../../features/notifications/model/hooks/useNotifications';
+import { useUnreadCount } from '../../entities/notifications/model/hooks/useNotifications';
 
 export function Header() {
     const nav = useNavigate();
